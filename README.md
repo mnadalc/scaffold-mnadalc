@@ -71,7 +71,7 @@ The generator asks for:
 - Prettier config follows your exact formatting style
 - E2E tests are generated under `src/e2e` (independent from `src/__tests__`)
 - Starter API templates are generated from your own domain/query/mutation names (no hardcoded example names)
-- Frontend aliases are configured (`@/`, `@api/`, `@components/`, `@contexts/`, `@models/`, `@test/`)
+- Frontend aliases are configured (`@/`, `@api/`, `@components/`, `@contexts/`, `@types/`, `@test/`)
 
 ## Generated Modes
 

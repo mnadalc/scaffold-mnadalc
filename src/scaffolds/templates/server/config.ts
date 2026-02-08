@@ -19,12 +19,15 @@ function serverTsConfig() {
 }
 function serverEslintConfig(language) {
     const typeConfig = language === 'ts';
+    const tsRootImports = typeConfig ? "import path from 'node:path';\nimport { fileURLToPath } from 'node:url';\n" : '';
+    const tsRootConst = typeConfig ? "\nconst tsconfigRootDir = path.dirname(fileURLToPath(import.meta.url));\n" : '';
     const tsImport = typeConfig ? "import tseslint from 'typescript-eslint';\n" : '';
     const tsSpread = typeConfig ? '  ...tseslint.configs.recommended,\n' : '';
+    const parserOptions = typeConfig ? "\n      parserOptions: {\n        tsconfigRootDir,\n      }," : '';
     const filesGlob = typeConfig ? '**/*.ts' : '**/*.js';
-    return `import js from '@eslint/js';
+return `import js from '@eslint/js';
 import globals from 'globals';
-${tsImport}
+${tsRootImports}${tsImport}${tsRootConst}
 export default ${typeConfig ? 'tseslint.config(' : '['}
   { ignores: ['dist'] },
   js.configs.recommended,
@@ -34,6 +37,7 @@ ${tsSpread}  {
       ecmaVersion: 2022,
       globals: globals.node,
       sourceType: 'module',
+${parserOptions}
     },
   }${typeConfig ? '\n);\n' : '\n];\n'}
 `;
