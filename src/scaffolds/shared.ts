@@ -366,6 +366,8 @@ export function frontendPackageJson(answers: Answers, packageName: string): Reco
 
   if (hasLintTools) {
     scripts['lint-staged'] = 'lint-staged';
+    scripts.prepare = 'husky';
+    addDep(deps.devDependencies, 'husky', 'latest');
   }
 
   return {
@@ -423,7 +425,7 @@ export function rootWorkspacePackageJson(projectName: string, hasLintTools: bool
 
   const devDependencies: Record<string, string> = {};
   if (hasLintTools) {
-    scripts.prepare = 'husky .husky';
+    scripts.prepare = 'husky';
     devDependencies.husky = 'latest';
   }
 
